@@ -1,0 +1,19 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "Community Guild discord bot",
+  "main": "Main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterg13/DiscordBot.git"
+  },
+  "author": "Peter Gustafson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterg13/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/peterg13/DiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.0"
+  }
+}
