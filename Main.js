@@ -95,9 +95,13 @@ var darthPlageuis = function(msg){
 
 var prequelMemes = function(msg){
     var url = 'https://www.reddit.com/r/PrequelMemes/top/';
-    request(url, function(response, html){
+    request(url, function(error, response, html){
         const $ = cheerio.load(html);
-        console.log($('#siteTable').html());
+        var links = []
+        links = $('.thing');
+        var rand = Math.floor(Math.random() * 25);
+        console.log($(links[rand]).attr('data-url'));
+        msg.channel.send($(links[rand]).attr('data-url'));
     })
 }
 
