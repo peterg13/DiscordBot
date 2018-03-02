@@ -1,12 +1,15 @@
 //documentation: https://discord.js.org/#/docs/main/stable/general/welcome
 
 //the file that contains the bot's Discord token (this file is in gitignore)
-var auth = require("./auth.json")
+var auth = require("./auth.json");
 
 //necessary import needed for Discord
 const Discord = require('discord.js');
 //user client used to run commands
 const client = new Discord.Client();
+//import of cheerio and request
+const cheerio = require('cheerio');
+const request = require('request');
 
 //logs that the bot is logged in
 client.on('ready', () => {
@@ -26,7 +29,7 @@ client.on('message', message => {
         var msg = message.content.toLowerCase();
         //if some says ping bot responds with pong
         if (msg == 'ping') {
-            if (pingCounter < 2){
+            if (pingCounter < 1){
                 message.channel.send('pong');
                 pingCounter += 1;
             }
@@ -60,6 +63,9 @@ client.on('message', message => {
         if(msg.includes("darth") || msg.includes("plagueis")){
             darthPlageuis(message);
         }
+        if(msg.includes("prequel")){
+            prequelMemes(message);
+        }
     }
     else{
         if (msgsToDelete > 0){
@@ -85,6 +91,14 @@ var thunderfuryCommand = function(msg){
 
 var darthPlageuis = function(msg){
     msg.channel.send("Did you ever hear the Tragedy of Darth Plagueis the wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.");
+}
+
+var prequelMemes = function(msg){
+    var url = 'https://www.reddit.com/r/PrequelMemes/top/';
+    request(url, function(response, html){
+        const $ = cheerio.load(html);
+        console.log($('#siteTable').html());
+    })
 }
 
 //logs the client in
