@@ -100,8 +100,10 @@ var prequelMemes = function(msg){
         var links = []
         links = $('.thing');
         var rand = Math.floor(Math.random() * 25);
-        console.log($(links[rand]).attr('data-url'));
-        msg.channel.send($(links[rand]).attr('data-url'));
+        var title = $(links[rand]).find('.title.may-blank').text();
+        var link = $(links[rand]).attr('data-url');
+        var sendString = title + '\n' + link;
+        msg.channel.send(sendString);
     })
 }
 
