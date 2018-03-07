@@ -7,9 +7,8 @@ var auth = require("./auth.json");
 const Discord = require('discord.js');
 //user client used to run commands
 const client = new Discord.Client();
-//import of cheerio and request
-const cheerio = require('cheerio');
-const request = require('request');
+//Prequel memes import
+const starWars = require('./starwars.js');
 
 //logs that the bot is logged in
 client.on('ready', () => {
@@ -61,10 +60,10 @@ client.on('message', message => {
             message.delete(7000);
         }
         if(msg.includes("darth") || msg.includes("plagueis")){
-            darthPlageuis(message);
+            starWars.darthPlageuis(message);
         }
         if(msg.includes("prequel")){
-            prequelMemes(message);
+            starWars.postPrequelMeme(message);
         }
     }
     else{
@@ -89,23 +88,9 @@ var thunderfuryCommand = function(msg){
     }, 8000);
 };
 
-var darthPlageuis = function(msg){
-    msg.channel.send("Did you ever hear the Tragedy of Darth Plagueis the wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.");
-}
 
-var prequelMemes = function(msg){
-    var url = 'https://www.reddit.com/r/PrequelMemes/top/';
-    request(url, function(error, response, html){
-        const $ = cheerio.load(html);
-        var links = []
-        links = $('.thing');
-        var rand = Math.floor(Math.random() * 25);
-        var title = $(links[rand]).find('.title.may-blank').text();
-        var link = $(links[rand]).attr('data-url');
-        var sendString = title + '\n' + link;
-        msg.channel.send(sendString);
-    })
-}
+
+
 
 //logs the client in
 client.login(auth.token);
