@@ -4,11 +4,13 @@ var lastPingedUser = null;
 //all the fucnctions in the export brackets will be available to use in our main file
 module.exports = {
 
+    //On Trigger: pongs back the user.  if the same user pings over and over the bot will sass them and eventually shut up until a new user pings
     pingCommand: function(msg){
-
+        //if this is the first ping then saves the user
         if(lastPingedUser === null){
             lastPingedUser = msg.author;
         }
+        //if the user is the same as the last ping then adds a counter, otherside resets the counter and save new user
         else{
             if(lastPingedUser === msg.author){
                 pingCounter += 1;
@@ -19,6 +21,7 @@ module.exports = {
             }
         }
 
+        //the following ar the sass responses back to a ping message
         if (pingCounter < 1){
             msg.channel.send('pong');
         }
