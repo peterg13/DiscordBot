@@ -22,23 +22,28 @@ client.on('ready', () => {
 client.on('message', message => {
     //if the message is from this bot it skips
     if (message.author.username != "Community Guild Bot"){
-        //converts the message content to lowercase and saves it in msg
-        var msg = message.content.toLowerCase();
-        
-        if (msg == 'ping') {
-            basicCommands.pingCommand(message);
-        }
-        if (msg.includes("thunderfury")){
-            wowCommands.thunderfury(message);
-        }
-        if(msg.includes("darth") || msg.includes("plagueis")){
-            starWars.darthPlageuis(message);
-        }
-        if(msg.includes("prequel")){
-            starWars.postPrequelMeme(message);
-        }
+        checkTriggers(message);
+        console.log(basicCommands.triggers);
     }
 });
+
+var checkTriggers = function(message){   
+    //converts the message content to lowercase and saves it in msg
+    var msg = message.content.toLowerCase();
+    //checks the triggers
+    if (msg == 'ping') {
+        basicCommands.pingCommand(message);
+    }
+    if (msg.includes("thunderfury")){
+        wowCommands.thunderfury(message);
+    }
+    if(msg.includes("darth") || msg.includes("plagueis")){
+        starWarsCommands.darthPlageuis(message);
+    }
+    if(msg.includes("prequel")){
+        starWarsCommands.postPrequelMeme(message);
+    }
+}
 
 //logs the client in
 client.login(auth.token);

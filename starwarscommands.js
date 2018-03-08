@@ -2,8 +2,11 @@
 const cheerio = require('cheerio');
 const request = require('request');
 
-//all the fucnctions in the export brackets will be available to use in our main file
+//all the functions in the export brackets will be available to use in our main file
 module.exports = {
+
+    //the trigger phrases for the star wars commands
+    triggers: ['darth', 'plagueis', 'prequel', 'shitpost engage'],
 
     //On Trigger: it will scrape the top posts from prequel memes reddit.  Choose a random post (1-25).  Then post the title and picture in discord
     postPrequelMeme: function(msg){

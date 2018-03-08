@@ -1,8 +1,12 @@
 var pingCounter = 0;
 var lastPingedUser = null;
 
-//all the fucnctions in the export brackets will be available to use in our main file
+
+//all the functions in the export brackets will be available to use in our main file
 module.exports = {
+
+    //the trigger phrases for the basic commands
+    triggers: ['ping'],
 
     //On Trigger: pongs back the user.  if the same user pings over and over the bot will sass them and eventually shut up until a new user pings
     pingCommand: function(msg){
