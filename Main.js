@@ -22,12 +22,17 @@ client.on('ready', () => {
 client.on('message', message => {
     //if the message is from this bot it skips
     if (message.author.username != "Community Guild Bot"){
-        checkTriggers(message);
-        console.log(basicCommands.triggers);
+        basicCommands.checkTriggers(message);
+        ///checkTriggers(message);
+        //console.log(basicCommands.triggers);
     }
 });
 
-var checkTriggers = function(message){   
+
+//var checkTriggers = function(message){  
+    
+
+    /* 
     //converts the message content to lowercase and saves it in msg
     var msg = message.content.toLowerCase();
     //checks the triggers
@@ -43,7 +48,8 @@ var checkTriggers = function(message){
     if(msg.includes("prequel")){
         starWarsCommands.postPrequelMeme(message);
     }
-}
+    */
+//}
 
 //logs the client in
 client.login(auth.token);
