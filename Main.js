@@ -7,14 +7,20 @@ var auth = require("./auth.json");
 const Discord = require('discord.js');
 //user client used to run commands
 const client = new Discord.Client();
+//the command class
+const Command = require('./Command.js');
 //import our other command files
 const basicCommands = require('./basiccommands.js');
 const starWarsCommands = require('./starwarscommands.js');
 const wowCommands = require('./wowcommands.js');
 
-//logs that the bot is logged in
+//array off commands that will be initialized by the "initCommands()" function
+var commands = [];
+
+//logs that the bot is logged in and initializes the commands
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  initCommands();
 });
 
 
@@ -22,35 +28,27 @@ client.on('ready', () => {
 client.on('message', message => {
     //if the message is from this bot it skips
     if (message.author.username != "Community Guild Bot"){
-        basicCommands.checkTriggers(message);
-        ///checkTriggers(message);
-        //console.log(basicCommands.triggers);
+        for(i = 0; i < commands.length; i++){
+            if(commands[i].checkTriggers(message) == true){
+                break;
+            }
+        }
+        
     }
 });
 
-
-//var checkTriggers = function(message){  
-    
-
-    /* 
-    //converts the message content to lowercase and saves it in msg
-    var msg = message.content.toLowerCase();
-    //checks the triggers
-    if (msg == 'ping') {
-        basicCommands.pingCommand(message);
-    }
-    if (msg.includes("thunderfury")){
-        wowCommands.thunderfury(message);
-    }
-    if(msg.includes("darth") || msg.includes("plagueis")){
-        starWarsCommands.darthPlageuis(message);
-    }
-    if(msg.includes("prequel")){
-        starWarsCommands.postPrequelMeme(message);
-    }
-    */
-//}
-
 //logs the client in
 client.login(auth.token);
+
+//innitializes all of the commands and pushes them to the "commands" array
+var initCommands = function(){
+    var ping = new Command(basicCommands.ping.triggers, basicCommands.ping.command);
+    commands.push(ping);
+    var thunderfury = new Command(wowCommands.thunderfury.triggers, wowCommands.thunderfury.command);
+    commands.push(thunderfury);
+    var prequelMeme = new Command(starWarsCommands.prequelMeme.triggers, starWarsCommands.prequelMeme.command);
+    commands.push(prequelMeme);
+    var dartPlageuis = new Command(starWarsCommands.darthPlageuis.triggers, starWarsCommands.darthPlageuis.command);
+    commands.push(dartPlageuis);
+};
   
